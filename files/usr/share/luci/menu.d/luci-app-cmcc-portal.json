@@ -1,0 +1,16 @@
+{
+	"admin/network/cmcc_portal": {
+		"title": "江苏移动认证",
+		"order": 95,
+		"action": {
+			"type": "view",
+			"path": "cmcc_portal"
+		},
+		"depends": {
+			"acl": [ "luci-app-cmcc-portal" ],
+			"fs": {
+				"/usr/bin/cmcc-portal": "executable"
+			}
+		}
+	}
+}
