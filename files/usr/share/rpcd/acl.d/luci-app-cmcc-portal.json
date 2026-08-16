@@ -1,0 +1,14 @@
+{
+	"luci-app-cmcc-portal": {
+		"description": "Grant access to Jiangsu Mobile Captive Portal auto login",
+		"read": {
+			"uci": [ "cmcc_portal" ]
+		},
+		"write": {
+			"uci": [ "cmcc_portal" ],
+			"file": {
+				"/usr/bin/cmcc-portal *": [ "exec" ]
+			}
+		}
+	}
+}
