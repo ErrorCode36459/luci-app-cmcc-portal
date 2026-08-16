@@ -1,0 +1,41 @@
+name: Publish v1.0.2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/publish-v1.0.2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify IPK
+        shell: bash
+        run: |
+          echo '5592ca978f676b788a6f8139cfaab18cee17b83b29b02d913981f170a7f78847  release/luci-app-cmcc-portal_1.0.2-1_all.ipk' | sha256sum -c -
+
+      - name: Create GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.0.2 >/dev/null 2>&1; then
+            echo 'Release v1.0.2 already exists.'
+            exit 0
+          fi
+
+          gh release create v1.0.2 \
+            release/luci-app-cmcc-portal_1.0.2-1_all.ipk \
+            --repo '${{ github.repository }}' \
+            --target '${{ github.sha }}' \
+            --title 'v1.0.2' \
+            --notes-file RELEASE_NOTES.md
