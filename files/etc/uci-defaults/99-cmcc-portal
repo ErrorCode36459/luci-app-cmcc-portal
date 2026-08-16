@@ -1,0 +1,10 @@
+#!/bin/sh
+chmod 600 /etc/config/cmcc_portal 2>/dev/null
+chmod 755 /usr/bin/cmcc-portal /etc/init.d/cmcc-portal 2>/dev/null
+/etc/init.d/cmcc-portal enable >/dev/null 2>&1
+/etc/init.d/cmcc-portal restart >/dev/null 2>&1
+rm -f /usr/lib/lua/luci/controller/cmcc_portal.lua 2>/dev/null
+rm -f /usr/lib/lua/luci/model/cbi/cmcc_portal.lua 2>/dev/null
+rm -f /tmp/luci-indexcache /tmp/luci-modulecache/* 2>/dev/null
+/etc/init.d/rpcd restart >/dev/null 2>&1
+exit 0
